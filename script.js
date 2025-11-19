@@ -217,6 +217,11 @@ if ('IntersectionObserver' in window) {
 const allVideos = document.querySelectorAll('video');
 
 allVideos.forEach(video => {
+    const container = video.closest('.video-container');
+    const cardDiv = video.closest('.adventure-card')?.querySelector('div');
+    const adventureCard = video.closest('.adventure-card');
+    
+    // CRITICAL FIX: Hide overlays when video plays
     video.addEventListener('play', function() {
         // Pause all other videos when this one plays
         allVideos.forEach(otherVideo => {
@@ -224,6 +229,38 @@ allVideos.forEach(video => {
                 otherVideo.pause();
             }
         });
+        
+        // Hide overlays when this video plays
+        if (cardDiv) {
+            cardDiv.style.setProperty('--overlay-hidden', '1', 'important');
+        }
+        if (adventureCard) {
+            adventureCard.classList.add('video-playing');
+        }
+    });
+    
+    video.addEventListener('pause', function() {
+        if (adventureCard) {
+            adventureCard.classList.remove('video-playing');
+        }
+    });
+    
+    // Hide overlays on hover
+    video.addEventListener('mouseenter', function() {
+        if (cardDiv) {
+            cardDiv.style.setProperty('--overlay-hidden', '1', 'important');
+        }
+        if (adventureCard) {
+            adventureCard.classList.add('video-hovered');
+        }
+    });
+    
+    video.addEventListener('mouseleave', function() {
+        if (video.paused) {
+            if (adventureCard) {
+                adventureCard.classList.remove('video-hovered');
+            }
+        }
     });
     
     // Add loading state handling

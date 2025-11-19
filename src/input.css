@@ -346,18 +346,37 @@ html {
     z-index: 1;
 }
 
-/* CRITICAL FIX: Hide felt-texture overlay in fullscreen - this is causing the dark display */
+/* CRITICAL FIX: Hide felt-texture overlay in fullscreen AND on hover/play - this is causing the dark display */
 :fullscreen .felt-texture::after,
 :-webkit-full-screen .felt-texture::after,
 :-moz-full-screen .felt-texture::after,
 :-ms-fullscreen .felt-texture::after,
-body.video-fullscreen-active .felt-texture::after {
+body.video-fullscreen-active .felt-texture::after,
+body.video-fullscreen-active .adventure-card .felt-texture::after,
+.adventure-card:hover .felt-texture::after,
+.adventure-card:has(.video-container:hover) .felt-texture::after,
+.adventure-card:has(video:not([paused])) .felt-texture::after,
+.adventure-card:has(video:hover) .felt-texture::after,
+.adventure-card.video-playing .felt-texture::after,
+.adventure-card.video-hovered .felt-texture::after {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     content: none !important;
     pointer-events: none !important;
     z-index: -1 !important;
+    background-image: none !important;
+    background: none !important;
+}
+
+/* Also hide felt-texture background itself in fullscreen */
+:fullscreen .felt-texture,
+:-webkit-full-screen .felt-texture,
+:-moz-full-screen .felt-texture,
+:-ms-fullscreen .felt-texture,
+body.video-fullscreen-active .felt-texture {
+    background: #000 !important;
+    background-image: none !important;
 }
 
 /* Remove transform from parent elements in fullscreen - transforms interfere with fullscreen */
@@ -470,6 +489,17 @@ section > * {
     transition: opacity 0.1s, visibility 0.1s;
 }
 
+/* CRITICAL: Hide overlay when video container is hovered or video is playing */
+.adventure-card:hover > div::before,
+.adventure-card:has(.video-container:hover) > div::before,
+.adventure-card:has(video:not([paused])) > div::before,
+.adventure-card:has(video:hover) > div::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    z-index: -1 !important;
+}
+
 /* Hide overlay when fullscreen is active on body */
 body.video-fullscreen-active .adventure-card > div::before,
 :fullscreen .adventure-card > div::before,
@@ -563,6 +593,58 @@ video::-webkit-media-controls-timeline {
     transition: transform 0.3s ease;
 }
 
+/* CRITICAL FIX: Hide ALL overlays when hovering over video or when video is playing */
+.adventure-card:hover .video-container video,
+.adventure-card .video-container:hover video,
+video:hover,
+video:focus {
+    filter: brightness(1) !important;
+    opacity: 1 !important;
+}
+
+/* Hide parent overlays when video is hovered or playing */
+.adventure-card:hover .video-container ~ *,
+.adventure-card .video-container:hover ~ * {
+    /* This won't work, need different approach */
+}
+
+/* Hide overlays on parent when video container is hovered */
+.adventure-card:hover .video-container,
+.adventure-card .video-container:hover {
+    position: relative;
+    z-index: 10;
+}
+
+.adventure-card:hover .video-container::before,
+.adventure-card .video-container:hover::before,
+.adventure-card:hover .video-container::after,
+.adventure-card .video-container:hover::after {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Hide parent div overlays when video is hovered or playing */
+.adventure-card:hover .video-container ~ *,
+.adventure-card .video-container:hover ~ * {
+    /* Need to target parent */
+}
+
+/* Better approach: Hide overlays on parent div when video container is hovered */
+.adventure-card:hover > div::before,
+.adventure-card:hover > div.felt-texture::after {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+}
+
+/* Hide overlays when video is playing */
+video:not([paused]) ~ *,
+.adventure-card:has(video:not([paused])) > div::before,
+.adventure-card:has(video:not([paused])) > div.felt-texture::after {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
 /* Remove video container transform in fullscreen */
 :fullscreen .video-container,
 :-webkit-full-screen .video-container,
@@ -593,6 +675,36 @@ video[poster] {
 /* Pause other videos when one plays */
 video {
     outline: none;
+    filter: brightness(1) !important;
+    opacity: 1 !important;
+}
+
+/* CRITICAL: Video element should NEVER be darkened by any overlay */
+video,
+video:hover,
+video:focus,
+video:active,
+video:not([paused]),
+.adventure-card:hover video,
+.adventure-card .video-container:hover video {
+    filter: brightness(1) !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+}
+
+/* Ensure video container never has dark overlays */
+.video-container,
+.video-container:hover,
+.adventure-card:hover .video-container {
+    filter: brightness(1) !important;
+}
+
+/* Prevent any overlays from affecting video */
+.video-container::before,
+.video-container::after {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* Ensure video brightness and visibility in all states */
@@ -792,11 +904,27 @@ body.video-fullscreen-active .video-container {
 }
 
 /* Use CSS variable to force hide overlays */
-.adventure-card > div[style*="--before-display"]::before {
+.adventure-card > div[style*="--before-display"]::before,
+.adventure-card > div[style*="--overlay-hidden"]::before {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     content: none !important;
+}
+
+/* Hide overlays when video is playing or hovered */
+.adventure-card.video-playing > div::before,
+.adventure-card.video-hovered > div::before,
+.adventure-card.video-playing .felt-texture::after,
+.adventure-card.video-hovered .felt-texture::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    background-image: none !important;
+    background: none !important;
 }
 
 /* Also hide overlays when any fullscreen element exists (for browsers that support :has) */

@@ -245,8 +245,21 @@ allVideos.forEach(video => {
         }
     });
     
-    // Hide overlays on hover
+    // Hide overlays on hover - but NOT in fullscreen
     video.addEventListener('mouseenter', function() {
+        // Check if in fullscreen - if so, don't apply hover effects
+        const isFullscreen = document.fullscreenElement || 
+                           document.webkitFullscreenElement ||
+                           document.mozFullScreenElement ||
+                           document.msFullscreenElement;
+        
+        if (isFullscreen) {
+            // In fullscreen, ensure video stays bright
+            this.style.setProperty('filter', 'brightness(1)', 'important');
+            this.style.setProperty('opacity', '1', 'important');
+            return; // Don't apply hover classes in fullscreen
+        }
+        
         if (cardDiv) {
             cardDiv.style.setProperty('--overlay-hidden', '1', 'important');
         }
@@ -256,6 +269,19 @@ allVideos.forEach(video => {
     });
     
     video.addEventListener('mouseleave', function() {
+        // Check if in fullscreen
+        const isFullscreen = document.fullscreenElement || 
+                           document.webkitFullscreenElement ||
+                           document.mozFullScreenElement ||
+                           document.msFullscreenElement;
+        
+        if (isFullscreen) {
+            // In fullscreen, ensure video stays bright
+            this.style.setProperty('filter', 'brightness(1)', 'important');
+            this.style.setProperty('opacity', '1', 'important');
+            return; // Don't remove hover classes in fullscreen
+        }
+        
         if (video.paused) {
             if (adventureCard) {
                 adventureCard.classList.remove('video-hovered');

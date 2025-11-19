@@ -366,6 +366,22 @@ body.video-fullscreen-active .adventure-card .felt-texture::after,
     background: none !important;
 }
 
+/* CRITICAL: In fullscreen, felt-texture overlay must stay hidden even on hover */
+:fullscreen .adventure-card:hover .felt-texture::after,
+:-webkit-full-screen .adventure-card:hover .felt-texture::after,
+:-moz-full-screen .adventure-card:hover .felt-texture::after,
+:-ms-fullscreen .adventure-card:hover .felt-texture::after,
+body.video-fullscreen-active .adventure-card:hover .felt-texture::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    background-image: none !important;
+    background: none !important;
+}
+
 /* Use @supports for :has() selector to prevent CSS parsing errors */
 @supports selector(:has(*)) {
     .adventure-card:has(.video-container:hover) .felt-texture::after,
@@ -510,6 +526,18 @@ section > * {
     z-index: -1 !important;
 }
 
+/* CRITICAL: In fullscreen, overlays must stay hidden even on hover */
+:fullscreen .adventure-card:hover > div::before,
+:-webkit-full-screen .adventure-card:hover > div::before,
+:-moz-full-screen .adventure-card:hover > div::before,
+:-ms-fullscreen .adventure-card:hover > div::before,
+body.video-fullscreen-active .adventure-card:hover > div::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    z-index: -1 !important;
+}
+
 /* Use @supports for :has() selector */
 @supports selector(:has(*)) {
     .adventure-card:has(.video-container:hover) > div::before,
@@ -616,10 +644,27 @@ video::-webkit-media-controls-timeline {
     filter: brightness(1.2);
 }
 
-/* Video hover effects */
+/* Video hover effects - DISABLED in fullscreen */
 .adventure-card:hover .video-container {
     transform: scale(1.02);
     transition: transform 0.3s ease;
+}
+
+/* CRITICAL: Disable ALL hover effects when in fullscreen */
+:fullscreen .adventure-card:hover .video-container,
+:-webkit-full-screen .adventure-card:hover .video-container,
+:-moz-full-screen .adventure-card:hover .video-container,
+:-ms-fullscreen .adventure-card:hover .video-container,
+body.video-fullscreen-active .adventure-card:hover .video-container {
+    transform: none !important;
+}
+
+:fullscreen .adventure-card:hover,
+:-webkit-full-screen .adventure-card:hover,
+:-moz-full-screen .adventure-card:hover,
+:-ms-fullscreen .adventure-card:hover,
+body.video-fullscreen-active .adventure-card:hover {
+    transform: none !important;
 }
 
 /* CRITICAL FIX: Hide ALL overlays when hovering over video or when video is playing */
@@ -629,6 +674,22 @@ video:hover,
 video:focus {
     filter: brightness(1) !important;
     opacity: 1 !important;
+}
+
+/* CRITICAL: In fullscreen, hover should NEVER darken the video */
+:fullscreen video:hover,
+:-webkit-full-screen video:hover,
+:-moz-full-screen video:hover,
+:-ms-fullscreen video:hover,
+:fullscreen .adventure-card:hover video,
+:-webkit-full-screen .adventure-card:hover video,
+:-moz-full-screen .adventure-card:hover video,
+:-ms-fullscreen .adventure-card:hover video,
+body.video-fullscreen-active video:hover,
+body.video-fullscreen-active .adventure-card:hover video {
+    filter: brightness(1) !important;
+    opacity: 1 !important;
+    filter: none !important;
 }
 
 /* Hide parent overlays when video is hovered or playing */
@@ -714,6 +775,34 @@ video:not([paused]),
     filter: brightness(1) !important;
     opacity: 1 !important;
     mix-blend-mode: normal !important;
+}
+
+/* CRITICAL: In fullscreen, video must NEVER be affected by hover - highest priority */
+:fullscreen video,
+:fullscreen video:hover,
+:fullscreen video:focus,
+:fullscreen video:active,
+:-webkit-full-screen video,
+:-webkit-full-screen video:hover,
+:-webkit-full-screen video:focus,
+:-webkit-full-screen video:active,
+:-moz-full-screen video,
+:-moz-full-screen video:hover,
+:-moz-full-screen video:focus,
+:-moz-full-screen video:active,
+:-ms-fullscreen video,
+:-ms-fullscreen video:hover,
+:-ms-fullscreen video:focus,
+:-ms-fullscreen video:active,
+body.video-fullscreen-active video,
+body.video-fullscreen-active video:hover,
+body.video-fullscreen-active video:focus,
+body.video-fullscreen-active video:active {
+    filter: brightness(1) !important;
+    filter: none !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+    background-color: #000 !important;
 }
 
 /* Ensure video container never has dark overlays */

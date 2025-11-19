@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lil Biff: The sassiest puppet on the web! Join me for puppet adventures, stories, and whimsical chaos. Pull the strings and explore!">
+    <meta name="keywords" content="Lil Biff puppet character, kids puppet adventures, whimsical puppet stories, puppet videos, sock puppet">
+    <meta name="author" content="Lil Biff">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lilbiff.com/">
+    <meta property="og:title" content="Lil Biff: The Sassiest Puppet on the Web | lilBiff.com">
+    <meta property="og:description" content="Join Lil Biff for puppet adventures, stories, and whimsical chaos!">
+    <meta property="og:image" content="https://lilbiff.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://lilbiff.com/">
+    <meta property="twitter:title" content="Lil Biff: The Sassiest Puppet on the Web | lilBiff.com">
+    <meta property="twitter:description" content="Join Lil Biff for puppet adventures, stories, and whimsical chaos!">
+    <meta property="twitter:image" content="https://lilbiff.com/og-image.jpg">
+    
+    <title>Lil Biff: The Sassiest Puppet on the Web | lilBiff.com</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Bangers&family=Comic+Neue:wght@400;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Analytics Placeholder -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
+</head>
+<body class="bg-[#FFF8E7] text-[#2C3E50] overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#FFF8E7]/90 backdrop-blur-sm border-b-2 border-[#FFD700] shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#hero" class="text-2xl font-bold font-['Fredoka_One'] text-[#FF6B6B] hover:text-[#4ECDC4] transition-colors">
+                    LIL BIFF
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#about" class="nav-link hover:text-[#FF6B6B] transition-colors">About</a>
+                    <a href="#adventures" class="nav-link hover:text-[#FF6B6B] transition-colors">Adventures</a>
+                    <a href="#make-puppet" class="nav-link hover:text-[#FF6B6B] transition-colors">Make Your Own</a>
+                    <a href="#join" class="nav-link hover:text-[#FF6B6B] transition-colors">Join the Parade</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-[#2C3E50] text-2xl">☰</button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#about" class="block py-2 hover:text-[#FF6B6B] transition-colors">About</a>
+                <a href="#adventures" class="block py-2 hover:text-[#FF6B6B] transition-colors">Adventures</a>
+                <a href="#make-puppet" class="block py-2 hover:text-[#FF6B6B] transition-colors">Make Your Own</a>
+                <a href="#join" class="block py-2 hover:text-[#FF6B6B] transition-colors">Join the Parade</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Theater Curtain Background -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FF6B6B] via-[#4ECDC4] to-[#FFD700] opacity-80"></div>
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <!-- Spotlight Effect -->
+        <div class="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/20"></div>
+        
+        <!-- Floating Yarn Elements -->
+        <div class="yarn-ball yarn-1"></div>
+        <div class="yarn-ball yarn-2"></div>
+        <div class="yarn-ball yarn-3"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4" data-aos="fade-up">
+            <div class="mb-8">
+                <div id="lil-biff-hero" class="inline-block puppet-sway">
+                    <div class="w-48 h-48 md:w-64 md:h-64 mx-auto bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-full flex items-center justify-center shadow-2xl relative">
+                        <div class="text-6xl md:text-8xl">🎭</div>
+                        <!-- Googly Eyes -->
+                        <div class="absolute top-8 left-12 w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-black rounded-full googly-eye"></div>
+                        </div>
+                        <div class="absolute top-8 right-12 w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-4 h-4 bg-black rounded-full googly-eye"></div>
+                        </div>
+                        <!-- Bowtie -->
+                        <div id="bowtie-easter-egg" class="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-[#FF6B6B] rounded cursor-pointer hover:scale-110 transition-transform">
+                            <div class="absolute inset-0 bg-[#4ECDC4] rounded-t-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-['Fredoka_One'] text-white mb-4 drop-shadow-2xl">
+                Welcome to Lil Biff's World!
+            </h1>
+            <p class="text-2xl md:text-3xl font-['Comic_Neue'] text-white mb-8 drop-shadow-lg">
+                *strings optional*
+            </p>
+            <a href="#about" class="cta-button inline-block bg-[#FFD700] hover:bg-[#4ECDC4] text-[#2C3E50] font-bold py-4 px-8 rounded-full text-xl shadow-xl transform hover:scale-110 transition-all duration-300">
+                Pull the Strings & Explore
+            </a>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-[#FFF8E7]">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl md:text-5xl font-['Bangers'] text-center mb-12 text-[#FF6B6B] uppercase" data-aos="fade-up">
+                About Lil Biff
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center" data-aos="fade-right">
+                    <div class="bg-gradient-to-br from-[#FFD700] to-[#4ECDC4] rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-transform">
+                        <div class="text-8xl mb-4">🧦</div>
+                        <div class="text-6xl mb-4">🎭</div>
+                        <p class="text-lg font-['Comic_Neue'] text-[#2C3E50]">
+                            "Studio Setup"
+                        </p>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <p class="text-xl md:text-2xl font-['Comic_Neue'] mb-6 leading-relaxed">
+                        Hey, human! I'm <strong class="text-[#FF6B6B]">Lil Biff</strong>, born from a rogue sock and a dream. I puppet my way through life, starring in videos, stories, and chaos. 
+                    </p>
+                    <p class="text-lg md:text-xl font-['Comic_Neue'] mb-6 leading-relaxed">
+                        Fun fact: I once 'directed' a flock of pigeons! They didn't listen, but hey, that's showbiz! 🐦
+                    </p>
+                    <div class="grid grid-cols-3 gap-4 mt-8">
+                        <div class="text-center p-4 bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-xl shadow-lg">
+                            <div class="text-4xl mb-2">🎬</div>
+                            <div class="font-bold text-2xl text-white">50+</div>
+                            <div class="text-sm text-white">Adventures</div>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-[#4ECDC4] to-[#FFD700] rounded-xl shadow-lg">
+                            <div class="text-4xl mb-2">❤️</div>
+                            <div class="font-bold text-2xl text-white">Growing</div>
+                            <div class="text-sm text-white">Fans</div>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-[#FF6B6B] to-[#4ECDC4] rounded-xl shadow-lg">
+                            <div class="text-4xl mb-2">✨</div>
+                            <div class="font-bold text-2xl text-white">Sass</div>
+                            <div class="text-sm text-white">Skills</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- YouTube Embed -->
+            <div class="mt-12" data-aos="fade-up">
+                <div class="bg-[#2C3E50] rounded-2xl p-4 shadow-2xl">
+                    <div class="aspect-video bg-gradient-to-br from-[#FFD700] to-[#4ECDC4] rounded-lg flex items-center justify-center">
+                        <p class="text-white text-xl font-['Comic_Neue']">🎥 Lil Biff Intro Video</p>
+                        <p class="text-white text-sm mt-2">(Replace with YouTube embed)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adventures Gallery -->
+    <section id="adventures" class="py-20 px-4 bg-gradient-to-b from-[#FFF8E7] to-[#FFD700]/20">
+        <div class="container mx-auto max-w-7xl">
+            <h2 class="text-4xl md:text-5xl font-['Bangers'] text-center mb-4 text-[#FF6B6B] uppercase" data-aos="fade-up">
+                My String-tastic Escapades
+            </h2>
+            <p class="text-center text-xl font-['Comic_Neue'] mb-12 text-[#2C3E50]" data-aos="fade-up">
+                Relive my adventures—warning: giggles guaranteed! 😄
+            </p>
+            
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-4 mb-12 flex-wrap" data-aos="fade-up">
+                <button class="filter-btn active bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
+                    All
+                </button>
+                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
+                    Videos
+                </button>
+                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
+                    Photos
+                </button>
+                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
+                    Stories
+                </button>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Adventure Cards -->
+                <div class="adventure-card" data-category="videos" data-aos="flip-left">
+                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#FFD700] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🍪</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">The Great Cookie Caper</h3>
+                        <p class="text-white/90 text-center">Watch me steal... I mean, borrow cookies!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">▶️</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="100">
+                    <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FF6B6B] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🏃</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Puppet Parkour Fail</h3>
+                        <p class="text-white/90 text-center">Spoiler: I can't jump!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">▶️</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="photos" data-aos="flip-left" data-aos-delay="200">
+                    <div class="bg-gradient-to-br from-[#FFD700] to-[#4ECDC4] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🏴‍☠️</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Backyard Treasure Hunt</h3>
+                        <p class="text-white/90 text-center">Found a shiny rock! Success!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">📸</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="stories" data-aos="flip-left" data-aos-delay="300">
+                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#4ECDC4] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🎭</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Improv Show Disaster</h3>
+                        <p class="text-white/90 text-center">The audience loved it... I think?</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">📖</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="400">
+                    <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FFD700] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🍰</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Baking Disaster #47</h3>
+                        <p class="text-white/90 text-center">Flour everywhere. Everywhere!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">▶️</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="photos" data-aos="flip-left" data-aos-delay="500">
+                    <div class="bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🎪</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Circus Day Out</h3>
+                        <p class="text-white/90 text-center">I fit right in!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">📸</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="stories" data-aos="flip-left" data-aos-delay="600">
+                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#FFD700] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🐦</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Pigeon Director Saga</h3>
+                        <p class="text-white/90 text-center">They're terrible actors.</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">📖</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="700">
+                    <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FF6B6B] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer">
+                        <div class="text-6xl mb-4 text-center">🎨</div>
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">Art Attack</h3>
+                        <p class="text-white/90 text-center">Finger painting with style!</p>
+                        <div class="mt-4 text-center">
+                            <span class="text-4xl">▶️</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Make Your Own Puppet Section -->
+    <section id="make-puppet" class="py-20 px-4 bg-[#FFF8E7]">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-4xl md:text-5xl font-['Bangers'] text-center mb-4 text-[#FF6B6B] uppercase" data-aos="fade-up">
+                Make Your Own Puppet
+            </h2>
+            <p class="text-center text-xl font-['Comic_Neue'] mb-12 text-[#2C3E50]" data-aos="fade-up">
+                Craft with me! It's easier than you think... probably. 😄
+            </p>
+            
+            <!-- Step-by-Step Guide -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-2xl p-8 mb-4 shadow-xl">
+                        <div class="text-6xl mb-4">🧦</div>
+                        <div class="text-4xl font-bold text-white mb-2">Step 1</div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Find a Sock</h3>
+                    <p class="font-['Comic_Neue']">Preferably one that's not too stinky! Clean socks work best.</p>
+                </div>
+                
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FFD700] rounded-2xl p-8 mb-4 shadow-xl">
+                        <div class="text-6xl mb-4">👀</div>
+                        <div class="text-4xl font-bold text-white mb-2">Step 2</div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Add Googly Eyes</h3>
+                    <p class="font-['Comic_Neue']">The googlier, the better! Glue them on tight.</p>
+                </div>
+                
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#4ECDC4] rounded-2xl p-8 mb-4 shadow-xl">
+                        <div class="text-6xl mb-4">🎀</div>
+                        <div class="text-4xl font-bold text-white mb-2">Step 3</div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Accessorize!</h3>
+                    <p class="font-['Comic_Neue']">Bowties, yarn hair, buttons—make it yours!</p>
+                </div>
+                
+                <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-2xl p-8 mb-4 shadow-xl">
+                        <div class="text-6xl mb-4">✨</div>
+                        <div class="text-4xl font-bold text-white mb-2">Step 4</div>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Bring to Life!</h3>
+                    <p class="font-['Comic_Neue']">Give it personality and start your adventures!</p>
+                </div>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="text-center" data-aos="fade-up">
+                <a href="#" class="cta-button inline-block bg-gradient-to-r from-[#FFD700] to-[#4ECDC4] hover:from-[#4ECDC4] hover:to-[#FF6B6B] text-[#2C3E50] font-bold py-4 px-8 rounded-full text-xl shadow-xl transform hover:scale-110 transition-all duration-300">
+                    Craft with Me (Download PDF Guide)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join the Puppet Parade / Footer -->
+    <section id="join" class="py-20 px-4 bg-gradient-to-b from-[#2C3E50] to-[#1a252f] text-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-['Bangers'] text-center mb-4 text-[#FFD700] uppercase" data-aos="fade-up">
+                Join the Puppet Parade
+            </h2>
+            <p class="text-center text-xl font-['Comic_Neue'] mb-12" data-aos="fade-up">
+                Get Lil Biff updates—exclusive puppet patterns & behind-the-scenes!
+            </p>
+            
+            <!-- Newsletter Form -->
+            <form id="newsletter-form" class="max-w-md mx-auto mb-12" data-aos="fade-up">
+                <div class="mb-4">
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="Your email address" 
+                        required
+                        class="w-full px-6 py-4 rounded-full text-[#2C3E50] text-lg focus:outline-none focus:ring-4 focus:ring-[#FFD700]"
+                    >
+                </div>
+                <div class="mb-4">
+                    <input 
+                        type="text" 
+                        id="puppet-name" 
+                        placeholder="What's your puppet name?" 
+                        class="w-full px-6 py-4 rounded-full text-[#2C3E50] text-lg focus:outline-none focus:ring-4 focus:ring-[#FFD700]"
+                    >
+                </div>
+                <button 
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-[#FFD700] to-[#4ECDC4] hover:from-[#4ECDC4] hover:to-[#FF6B6B] text-[#2C3E50] font-bold py-4 px-8 rounded-full text-xl shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                    Join the Fun! 🎉
+                </button>
+            </form>
+            
+            <!-- Social Links -->
+            <div class="flex justify-center gap-6 mb-12" data-aos="fade-up">
+                <a href="https://instagram.com/lilbiffpuppet" target="_blank" rel="noopener noreferrer" 
+                   class="w-16 h-16 bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-full flex items-center justify-center text-3xl hover:scale-110 transition-transform shadow-lg">
+                    📷
+                </a>
+                <a href="https://tiktok.com/@lilbiffpuppet" target="_blank" rel="noopener noreferrer"
+                   class="w-16 h-16 bg-gradient-to-br from-[#4ECDC4] to-[#FFD700] rounded-full flex items-center justify-center text-3xl hover:scale-110 transition-transform shadow-lg">
+                    🎵
+                </a>
+                <a href="https://youtube.com/@lilbiffpuppet" target="_blank" rel="noopener noreferrer"
+                   class="w-16 h-16 bg-gradient-to-br from-[#FF6B6B] to-[#4ECDC4] rounded-full flex items-center justify-center text-3xl hover:scale-110 transition-transform shadow-lg">
+                    ▶️
+                </a>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="text-center border-t border-white/20 pt-8">
+                <p class="font-['Comic_Neue'] mb-4">
+                    © 2025 Lil Biff's Strings Attached | Made with ❤️ and glue
+                </p>
+                <p class="text-sm opacity-75 mb-4">
+                    Pulling strings since 2023!
+                </p>
+                <button id="back-to-top" class="text-4xl hover:scale-110 transition-transform" aria-label="Back to top">
+                    👆
+                </button>
+            </footer>
+        </div>
+    </section>
+
+    <!-- Confetti Container (for easter egg) -->
+    <div id="confetti-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

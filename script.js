@@ -228,11 +228,44 @@ allVideos.forEach(video => {
     
     // Add loading state handling
     video.addEventListener('loadstart', function() {
-        this.style.opacity = '0.7';
+        // Only set opacity if not in fullscreen
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+            !document.mozFullScreenElement && !document.msFullscreenElement) {
+            this.style.opacity = '0.7';
+        }
     });
     
     video.addEventListener('canplay', function() {
         this.style.opacity = '1';
+    });
+    
+    // Ensure video is fully visible in fullscreen
+    video.addEventListener('webkitfullscreenchange', function() {
+        if (document.webkitFullscreenElement === this) {
+            this.style.opacity = '1';
+            this.style.filter = 'none';
+        }
+    });
+    
+    video.addEventListener('mozfullscreenchange', function() {
+        if (document.mozFullScreenElement === this) {
+            this.style.opacity = '1';
+            this.style.filter = 'none';
+        }
+    });
+    
+    video.addEventListener('MSFullscreenChange', function() {
+        if (document.msFullscreenElement === this) {
+            this.style.opacity = '1';
+            this.style.filter = 'none';
+        }
+    });
+    
+    video.addEventListener('fullscreenchange', function() {
+        if (document.fullscreenElement === this) {
+            this.style.opacity = '1';
+            this.style.filter = 'none';
+        }
     });
     
     // Handle video errors gracefully

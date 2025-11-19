@@ -538,3 +538,45 @@ video {
     outline: none;
 }
 
+/* Fullscreen video styling - remove any dark overlays */
+video:-webkit-full-screen {
+    background-color: #000;
+    filter: none;
+    opacity: 1 !important;
+}
+
+video:-moz-full-screen {
+    background-color: #000;
+    filter: none;
+    opacity: 1 !important;
+}
+
+video:-ms-fullscreen {
+    background-color: #000;
+    filter: none;
+    opacity: 1 !important;
+}
+
+video:fullscreen {
+    background-color: #000;
+    filter: none;
+    opacity: 1 !important;
+}
+
+/* Ensure video container doesn't affect fullscreen */
+.video-container:-webkit-full-screen {
+    background: #000 !important;
+}
+
+.video-container:-moz-full-screen {
+    background: #000 !important;
+}
+
+.video-container:-ms-fullscreen {
+    background: #000 !important;
+}
+
+.video-container:fullscreen {
+    background: #000 !important;
+}
+

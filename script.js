@@ -239,32 +239,44 @@ allVideos.forEach(video => {
         this.style.opacity = '1';
     });
     
-    // Ensure video is fully visible in fullscreen
-    video.addEventListener('webkitfullscreenchange', function() {
-        if (document.webkitFullscreenElement === this) {
+    // Ensure video is fully visible in fullscreen and hide parent overlays
+    function handleFullscreenChange() {
+        const isFullscreen = document.fullscreenElement === this || 
+                           document.webkitFullscreenElement === this ||
+                           document.mozFullScreenElement === this ||
+                           document.msFullscreenElement === this;
+        
+        if (isFullscreen) {
             this.style.opacity = '1';
             this.style.filter = 'none';
+            this.style.backgroundColor = '#000';
+            this.style.zIndex = '999999';
+            
+            // Add class to body to hide all card overlays
+            document.body.classList.add('video-fullscreen-active');
+        } else {
+            // Remove the class when exiting fullscreen
+            document.body.classList.remove('video-fullscreen-active');
+            this.style.zIndex = '';
         }
-    });
+    }
     
-    video.addEventListener('mozfullscreenchange', function() {
-        if (document.mozFullScreenElement === this) {
-            this.style.opacity = '1';
-            this.style.filter = 'none';
-        }
-    });
+    video.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    video.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    video.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    video.addEventListener('fullscreenchange', handleFullscreenChange);
     
-    video.addEventListener('MSFullscreenChange', function() {
-        if (document.msFullscreenElement === this) {
-            this.style.opacity = '1';
-            this.style.filter = 'none';
-        }
-    });
-    
-    video.addEventListener('fullscreenchange', function() {
-        if (document.fullscreenElement === this) {
-            this.style.opacity = '1';
-            this.style.filter = 'none';
+    // Also listen for when fullscreen is requested to ensure video element goes fullscreen
+    video.addEventListener('dblclick', function(e) {
+        // On double-click, request fullscreen on the video element itself
+        if (this.requestFullscreen) {
+            this.requestFullscreen().catch(err => console.log('Fullscreen error:', err));
+        } else if (this.webkitRequestFullscreen) {
+            this.webkitRequestFullscreen();
+        } else if (this.mozRequestFullScreen) {
+            this.mozRequestFullScreen();
+        } else if (this.msRequestFullscreen) {
+            this.msRequestFullscreen();
         }
     });
     

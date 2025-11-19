@@ -434,6 +434,7 @@ section > * {
         );
     pointer-events: none;
     opacity: 0.6;
+    z-index: 1;
 }
 
 /* Hero section fabric curtain effect */
@@ -540,27 +541,31 @@ video {
 
 /* Fullscreen video styling - remove any dark overlays */
 video:-webkit-full-screen {
-    background-color: #000;
-    filter: none;
+    background-color: #000 !important;
+    filter: none !important;
     opacity: 1 !important;
+    z-index: 999999 !important;
 }
 
 video:-moz-full-screen {
-    background-color: #000;
-    filter: none;
+    background-color: #000 !important;
+    filter: none !important;
     opacity: 1 !important;
+    z-index: 999999 !important;
 }
 
 video:-ms-fullscreen {
-    background-color: #000;
-    filter: none;
+    background-color: #000 !important;
+    filter: none !important;
     opacity: 1 !important;
+    z-index: 999999 !important;
 }
 
 video:fullscreen {
-    background-color: #000;
-    filter: none;
+    background-color: #000 !important;
+    filter: none !important;
     opacity: 1 !important;
+    z-index: 999999 !important;
 }
 
 /* Ensure video container doesn't affect fullscreen */
@@ -578,5 +583,24 @@ video:fullscreen {
 
 .video-container:fullscreen {
     background: #000 !important;
+}
+
+/* Hide parent card overlays when video is in fullscreen (via JavaScript body class) */
+body.video-fullscreen-active .adventure-card > div::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Also hide overlays when any fullscreen element exists (for browsers that support :has) */
+@supports selector(:has(*)) {
+    body:has(:fullscreen) .adventure-card > div::before,
+    body:has(:-webkit-full-screen) .adventure-card > div::before,
+    body:has(:-moz-full-screen) .adventure-card > div::before,
+    body:has(:-ms-fullscreen) .adventure-card > div::before {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
 }
 

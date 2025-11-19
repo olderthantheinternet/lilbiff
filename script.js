@@ -69,23 +69,25 @@ filterButtons.forEach(button => {
     });
 });
 
-// Easter Egg: Click on Bowtie for Confetti
+// Easter Egg: Click on Lil Biff Image (bowtie area) for Confetti
 const bowtie = document.getElementById('bowtie-easter-egg');
+const lilBiffHero = document.getElementById('lil-biff-hero');
 const confettiContainer = document.getElementById('confetti-container');
 
-if (bowtie && confettiContainer) {
+if ((bowtie || lilBiffHero) && confettiContainer) {
     let confettiCount = 0;
+    const clickTarget = bowtie || lilBiffHero;
     
-    bowtie.addEventListener('click', function() {
+    clickTarget.addEventListener('click', function(e) {
         // Prevent multiple rapid clicks
         if (confettiCount > 0) return;
         confettiCount++;
         
         // Create confetti explosion
         const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#2C3E50', '#FFF8E7'];
-        const confettiCount = 50;
+        const confettiAmount = 50;
         
-        for (let i = 0; i < confettiCount; i++) {
+        for (let i = 0; i < confettiAmount; i++) {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = Math.random() * 100 + '%';

@@ -16,9 +16,9 @@ Welcome to the whimsical world of Lil Biff! This is a one-page interactive websi
 
 ## 🚀 Deployment to GitHub Pages
 
-### Recommended: GitHub Actions (Most Reliable)
+### Option 1: Deploy from a Branch (Simplest - Recommended for Static Sites)
 
-This method provides the most reliable deployment with clear feedback and better control.
+This is the simplest method and perfect for this static website since there's no build step needed.
 
 1. **Create a GitHub Repository**
    ```bash
@@ -30,37 +30,35 @@ This method provides the most reliable deployment with clear feedback and better
    git push -u origin main
    ```
 
-2. **Enable GitHub Pages with Actions**
+2. **Enable GitHub Pages**
    - Go to your repository on GitHub
    - Click **Settings** → **Pages**
-   - Under **Source**, select **GitHub Actions**
-   - The workflow file (`.github/workflows/deploy.yml`) is already included in this project
-   - On your next push, GitHub Actions will automatically deploy your site
-   - You can monitor the deployment in the **Actions** tab
-
-3. **Your site will be available at:**
-   - `https://yourusername.github.io/lilbiff/`
-
-**Why this method?** 
-- ✅ More reliable deployment
-- ✅ Clear deployment status and logs
-- ✅ Can add build steps, tests, or optimizations later
-- ✅ Better error messages if something goes wrong
-- ✅ Consistent with modern CI/CD workflows
-
-### Alternative: Deploy from a Branch
-
-If you prefer the simpler method (though GitHub Actions is recommended):
-
-1. **Push your code** (same as above, step 1)
-
-2. **Enable GitHub Pages**
-   - Go to **Settings** → **Pages**
    - Under **Source**, select **Deploy from a branch**
    - Choose **main** branch and **/ (root)** folder
    - Click **Save**
+   - Your site will be available at `https://yourusername.github.io/lilbiff/`
 
-**Note:** Some users have reported issues with "Deploy from a branch" method. GitHub Actions is more reliable and recommended.
+**Why this method?** Since this is a pure static site (HTML/CSS/JS with no build step), GitHub can serve the files directly from your branch. No compilation needed!
+
+### Option 2: GitHub Actions (More Control)
+
+If you prefer using GitHub Actions (useful if you want to add build steps later, run tests, or have more deployment control):
+
+1. **Push your code** (same as Option 1, step 1)
+
+2. **Enable GitHub Pages with Actions**
+   - Go to **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - The workflow file (`.github/workflows/deploy.yml`) is already included in this project
+   - On your next push, GitHub Actions will automatically deploy your site
+
+**Why this method?** 
+- More control over the deployment process
+- Can add build steps, tests, or optimizations later
+- Consistent with projects that use build tools
+- Better for CI/CD workflows
+
+**Note:** Both methods work equally well for this static site. Choose based on your preference!
 
 ## 📁 Project Structure
 

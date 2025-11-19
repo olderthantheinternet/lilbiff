@@ -338,12 +338,12 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+    background-image: none;
     background-size: 20px 20px;
-    opacity: 0.4;
+    opacity: 0;
     pointer-events: none;
     z-index: 0;
+    display: none;
 }
 
 /* CRITICAL: In fullscreen, felt-texture::after MUST be hidden - this is the dark overlay causing the issue */

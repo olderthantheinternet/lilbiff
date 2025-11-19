@@ -240,14 +240,35 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// Adventure Card Click Handler (for future video modal implementation)
-adventureCards.forEach(card => {
-    card.addEventListener('click', function() {
-        // This would open a modal with the video/photo/story
-        // For now, just log it
-        const title = card.querySelector('h3')?.textContent || 'Adventure';
-        console.log(`Opening: ${title}`);
-        // TODO: Implement modal for videos/photos/stories
+// Video Player Management - Pause other videos when one plays
+const allVideos = document.querySelectorAll('video');
+
+allVideos.forEach(video => {
+    video.addEventListener('play', function() {
+        // Pause all other videos when this one plays
+        allVideos.forEach(otherVideo => {
+            if (otherVideo !== video && !otherVideo.paused) {
+                otherVideo.pause();
+            }
+        });
+    });
+    
+    // Add loading state handling
+    video.addEventListener('loadstart', function() {
+        this.style.opacity = '0.7';
+    });
+    
+    video.addEventListener('canplay', function() {
+        this.style.opacity = '1';
+    });
+    
+    // Handle video errors gracefully
+    video.addEventListener('error', function() {
+        console.error('Video loading error:', this.src);
+        const container = this.closest('.video-container');
+        if (container) {
+            container.innerHTML = '<div class="flex items-center justify-center h-full text-white p-4 text-center">Video unavailable. Please try again later.</div>';
+        }
     });
 });
 

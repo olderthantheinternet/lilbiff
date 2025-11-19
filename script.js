@@ -304,14 +304,22 @@ allVideos.forEach(video => {
                 div.style.setProperty('background', '#000', 'important');
                 div.style.setProperty('background-image', 'none', 'important');
                 div.style.setProperty('background-color', '#000', 'important');
+                div.style.setProperty('transform', 'none', 'important'); // Remove transforms
                 // Force hide the ::before pseudo-element by setting a CSS variable
                 div.style.setProperty('--before-display', 'none', 'important');
+            });
+            
+            // Remove transforms from adventure cards
+            const allAdventureCards = document.querySelectorAll('.adventure-card');
+            allAdventureCards.forEach(card => {
+                card.style.setProperty('transform', 'none', 'important');
             });
             
             const allContainers = document.querySelectorAll('.video-container');
             allContainers.forEach(cont => {
                 cont.style.setProperty('background', '#000', 'important');
                 cont.style.setProperty('background-color', '#000', 'important');
+                cont.style.setProperty('transform', 'none', 'important');
             });
             
             // Add class to body to hide all card overlays via CSS
@@ -375,13 +383,64 @@ allVideos.forEach(video => {
     video.addEventListener('MSFullscreenChange', handleFullscreenChange);
     video.addEventListener('fullscreenchange', handleFullscreenChange);
     
-    // Intercept fullscreen button clicks on video controls
+    // Intercept fullscreen button clicks on video controls - CRITICAL FIX
+    // When user clicks native fullscreen button, ensure video element goes fullscreen, not parent
     video.addEventListener('webkitbeginfullscreen', function(e) {
         e.preventDefault();
+        e.stopPropagation();
+        // Request fullscreen on video element itself
         if (this.webkitRequestFullscreen) {
             this.webkitRequestFullscreen();
         }
     }, true);
+    
+    // Intercept fullscreen requests on the video element
+    const originalRequestFullscreen = video.requestFullscreen || video.webkitRequestFullscreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+    
+    // Override any fullscreen requests to ensure video element goes fullscreen
+    if (video.requestFullscreen) {
+        const original = video.requestFullscreen.bind(video);
+        video.requestFullscreen = function() {
+            return original().then(() => {
+                handleFullscreenChange.call(video);
+            });
+        };
+    }
+    
+    // Monitor for fullscreen API calls and redirect to video element
+    const observer = new MutationObserver(() => {
+        const fullscreenElement = document.fullscreenElement || 
+                                 document.webkitFullscreenElement ||
+                                 document.mozFullScreenElement ||
+                                 document.msFullscreenElement;
+        
+        if (fullscreenElement && fullscreenElement !== video && 
+            (fullscreenElement === container || fullscreenElement === cardDiv || 
+             fullscreenElement.contains(video))) {
+            // Parent went fullscreen instead of video - exit and request on video
+            const exitFullscreen = document.exitFullscreen || 
+                                 document.webkitExitFullscreen ||
+                                 document.mozCancelFullScreen ||
+                                 document.msExitFullscreen;
+            if (exitFullscreen) {
+                exitFullscreen.call(document).then(() => {
+                    setTimeout(() => {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen().catch(() => {});
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    }, 100);
+                }).catch(() => {});
+            }
+        }
+    });
+    
+    observer.observe(document.body, { childList: false, subtree: false, attributes: true, attributeFilter: [] });
     
     // Also listen for when fullscreen is requested to ensure video element goes fullscreen
     video.addEventListener('dblclick', function(e) {

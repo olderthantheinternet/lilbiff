@@ -343,6 +343,38 @@ html {
     background-size: 20px 20px;
     opacity: 0.4;
     pointer-events: none;
+    z-index: 1;
+}
+
+/* CRITICAL FIX: Hide felt-texture overlay in fullscreen - this is causing the dark display */
+:fullscreen .felt-texture::after,
+:-webkit-full-screen .felt-texture::after,
+:-moz-full-screen .felt-texture::after,
+:-ms-fullscreen .felt-texture::after,
+body.video-fullscreen-active .felt-texture::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+}
+
+/* Remove transform from parent elements in fullscreen - transforms interfere with fullscreen */
+:fullscreen .felt-texture,
+:-webkit-full-screen .felt-texture,
+:-moz-full-screen .felt-texture,
+:-ms-fullscreen .felt-texture,
+body.video-fullscreen-active .felt-texture {
+    transform: none !important;
+}
+
+:fullscreen .adventure-card,
+:-webkit-full-screen .adventure-card,
+:-moz-full-screen .adventure-card,
+:-ms-fullscreen .adventure-card,
+body.video-fullscreen-active .adventure-card {
+    transform: none !important;
 }
 
 /* Puppet Image Styling */
@@ -531,6 +563,15 @@ video::-webkit-media-controls-timeline {
     transition: transform 0.3s ease;
 }
 
+/* Remove video container transform in fullscreen */
+:fullscreen .video-container,
+:-webkit-full-screen .video-container,
+:-moz-full-screen .video-container,
+:-ms-fullscreen .video-container,
+body.video-fullscreen-active .video-container {
+    transform: none !important;
+}
+
 /* Ensure videos are responsive */
 @media (max-width: 768px) {
     .video-container {
@@ -648,6 +689,21 @@ video:fullscreen {
     opacity: 0 !important;
     visibility: hidden !important;
     content: none !important;
+}
+
+/* CRITICAL FIX: Hide felt-texture::after overlay when ANY parent is fullscreen */
+:-webkit-full-screen .felt-texture::after,
+:-moz-full-screen .felt-texture::after,
+:-ms-fullscreen .felt-texture::after,
+:fullscreen .felt-texture::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    background-image: none !important;
+    background: none !important;
 }
 
 :-webkit-full-screen .adventure-card > div,

@@ -778,6 +778,23 @@ video:not([paused]),
 }
 
 /* CRITICAL: In fullscreen, video must NEVER be affected by hover - highest priority */
+/* When video element itself is fullscreen, target it directly */
+video:fullscreen,
+video:fullscreen:hover,
+video:fullscreen:focus,
+video:fullscreen:active,
+video:-webkit-full-screen,
+video:-webkit-full-screen:hover,
+video:-webkit-full-screen:focus,
+video:-webkit-full-screen:active,
+video:-moz-full-screen,
+video:-moz-full-screen:hover,
+video:-moz-full-screen:focus,
+video:-moz-full-screen:active,
+video:-ms-fullscreen,
+video:-ms-fullscreen:hover,
+video:-ms-fullscreen:focus,
+video:-ms-fullscreen:active,
 :fullscreen video,
 :fullscreen video:hover,
 :fullscreen video:focus,
@@ -798,7 +815,6 @@ body.video-fullscreen-active video,
 body.video-fullscreen-active video:hover,
 body.video-fullscreen-active video:focus,
 body.video-fullscreen-active video:active {
-    filter: brightness(1) !important;
     filter: none !important;
     opacity: 1 !important;
     mix-blend-mode: normal !important;

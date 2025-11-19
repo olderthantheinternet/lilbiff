@@ -280,66 +280,70 @@ allVideos.forEach(video => {
                                  document.mozFullScreenElement ||
                                  document.msFullscreenElement;
         
-        const isFullscreen = fullscreenElement === this || 
+        const isFullscreen = fullscreenElement && (
+                           fullscreenElement === this || 
                            fullscreenElement === container ||
                            fullscreenElement === cardDiv ||
-                           fullscreenElement?.contains(this);
+                           fullscreenElement.contains(this) ||
+                           fullscreenElement.contains(container) ||
+                           fullscreenElement.contains(cardDiv)
+        );
         
         if (isFullscreen) {
-            // If container or parent went fullscreen, exit and request on video
-            if (fullscreenElement !== this && fullscreenElement?.contains(this)) {
-                const exitFullscreen = document.exitFullscreen || 
-                                     document.webkitExitFullscreen ||
-                                     document.mozCancelFullScreen ||
-                                     document.msExitFullscreen;
-                if (exitFullscreen) {
-                    exitFullscreen.call(document).then(() => {
-                        // Request fullscreen on video element
-                        if (video.requestFullscreen) {
-                            video.requestFullscreen().catch(() => {});
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        } else if (video.mozRequestFullScreen) {
-                            video.mozRequestFullScreen();
-                        } else if (video.msRequestFullscreen) {
-                            video.msRequestFullscreen();
-                        }
-                    }).catch(() => {});
-                }
-            }
-            
-            // Force video styling
+            // Force video styling - remove any darkening
             this.style.setProperty('opacity', '1', 'important');
             this.style.setProperty('filter', 'none', 'important');
             this.style.setProperty('background-color', '#000', 'important');
             this.style.setProperty('z-index', '999999', 'important');
             this.style.setProperty('mix-blend-mode', 'normal', 'important');
+            this.style.setProperty('border-radius', '0', 'important'); // Remove rounded corners in fullscreen
             
-            // Hide parent overlays and backgrounds
-            if (cardDiv) {
-                cardDiv.style.setProperty('background', '#000', 'important');
-                cardDiv.style.setProperty('background-image', 'none', 'important');
-            }
-            if (container) {
-                container.style.setProperty('background', '#000', 'important');
-            }
+            // Hide ALL parent overlays and backgrounds - comprehensive approach
+            const allCardDivs = document.querySelectorAll('.adventure-card > div');
+            allCardDivs.forEach(div => {
+                div.style.setProperty('background', '#000', 'important');
+                div.style.setProperty('background-image', 'none', 'important');
+                div.style.setProperty('background-color', '#000', 'important');
+                // Force hide the ::before pseudo-element by setting a CSS variable
+                div.style.setProperty('--before-display', 'none', 'important');
+            });
             
-            // Add class to body to hide all card overlays
+            const allContainers = document.querySelectorAll('.video-container');
+            allContainers.forEach(cont => {
+                cont.style.setProperty('background', '#000', 'important');
+                cont.style.setProperty('background-color', '#000', 'important');
+            });
+            
+            // Add class to body to hide all card overlays via CSS
             document.body.classList.add('video-fullscreen-active');
             
-            console.log('Video fullscreen active - element:', fullscreenElement?.tagName, fullscreenElement?.className);
+            // Also add inline style to body to ensure overlays are hidden
+            document.body.style.setProperty('--fullscreen-active', '1', 'important');
+            
         } else {
             // Remove the class when exiting fullscreen
             document.body.classList.remove('video-fullscreen-active');
+            document.body.style.removeProperty('--fullscreen-active');
+            
+            // Reset video styles
             this.style.removeProperty('z-index');
             this.style.removeProperty('mix-blend-mode');
-            if (cardDiv) {
-                cardDiv.style.removeProperty('background');
-                cardDiv.style.removeProperty('background-image');
-            }
-            if (container) {
-                container.style.removeProperty('background');
-            }
+            this.style.removeProperty('border-radius');
+            
+            // Reset parent styles
+            const allCardDivs = document.querySelectorAll('.adventure-card > div');
+            allCardDivs.forEach(div => {
+                div.style.removeProperty('background');
+                div.style.removeProperty('background-image');
+                div.style.removeProperty('background-color');
+                div.style.removeProperty('--before-display');
+            });
+            
+            const allContainers = document.querySelectorAll('.video-container');
+            allContainers.forEach(cont => {
+                cont.style.removeProperty('background');
+                cont.style.removeProperty('background-color');
+            });
         }
     }
     

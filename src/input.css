@@ -435,6 +435,21 @@ section > * {
     pointer-events: none;
     opacity: 0.6;
     z-index: 1;
+    transition: opacity 0.1s, visibility 0.1s;
+}
+
+/* Hide overlay when fullscreen is active on body */
+body.video-fullscreen-active .adventure-card > div::before,
+:fullscreen .adventure-card > div::before,
+:-webkit-full-screen .adventure-card > div::before,
+:-moz-full-screen .adventure-card > div::before,
+:-ms-fullscreen .adventure-card > div::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    content: none !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
 }
 
 /* Hero section fabric curtain effect */
@@ -539,6 +554,24 @@ video {
     outline: none;
 }
 
+/* Ensure video brightness and visibility in all states */
+video:fullscreen,
+video:-webkit-full-screen,
+video:-moz-full-screen,
+video:-ms-fullscreen {
+    filter: brightness(1) contrast(1) saturate(1) !important;
+    opacity: 1 !important;
+}
+
+/* When any parent is fullscreen, ensure video inside is bright */
+:fullscreen video,
+:-webkit-full-screen video,
+:-moz-full-screen video,
+:-ms-fullscreen video {
+    filter: brightness(1) contrast(1) saturate(1) !important;
+    opacity: 1 !important;
+}
+
 /* Fullscreen video styling - remove any dark overlays */
 video:-webkit-full-screen {
     background-color: #000 !important;
@@ -601,6 +634,37 @@ video:fullscreen {
     filter: none !important;
     background-color: transparent !important;
     z-index: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+/* CRITICAL: When ANY element containing a video goes fullscreen, remove ALL overlays and dark backgrounds */
+:-webkit-full-screen .adventure-card > div::before,
+:-moz-full-screen .adventure-card > div::before,
+:-ms-fullscreen .adventure-card > div::before,
+:fullscreen .adventure-card > div::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
+}
+
+:-webkit-full-screen .adventure-card > div,
+:-moz-full-screen .adventure-card > div,
+:-ms-fullscreen .adventure-card > div,
+:fullscreen .adventure-card > div {
+    background: #000 !important;
+    background-image: none !important;
+    background-color: #000 !important;
+}
+
+:-webkit-full-screen .video-container,
+:-moz-full-screen .video-container,
+:-ms-fullscreen .video-container,
+:fullscreen .video-container {
+    background: #000 !important;
+    background-color: #000 !important;
 }
 
 /* Ensure video container doesn't affect fullscreen */
@@ -656,15 +720,27 @@ body.video-fullscreen-active .adventure-card > div::before {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
+    content: none !important;
+    pointer-events: none !important;
 }
 
 body.video-fullscreen-active .adventure-card > div {
     background: #000 !important;
     background-image: none !important;
+    background-color: #000 !important;
 }
 
 body.video-fullscreen-active .video-container {
     background: #000 !important;
+    background-color: #000 !important;
+}
+
+/* Use CSS variable to force hide overlays */
+.adventure-card > div[style*="--before-display"]::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    content: none !important;
 }
 
 /* Also hide overlays when any fullscreen element exists (for browsers that support :has) */

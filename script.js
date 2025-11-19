@@ -239,32 +239,145 @@ allVideos.forEach(video => {
         this.style.opacity = '1';
     });
     
-    // Ensure video is fully visible in fullscreen and hide parent overlays
-    function handleFullscreenChange() {
-        const isFullscreen = document.fullscreenElement === this || 
-                           document.webkitFullscreenElement === this ||
-                           document.mozFullScreenElement === this ||
-                           document.msFullscreenElement === this;
+    // Intercept fullscreen requests to ensure video element goes fullscreen, not container
+    const container = video.closest('.video-container');
+    const cardDiv = video.closest('.adventure-card')?.querySelector('div');
+    
+    // Prevent container or parent from going fullscreen
+    if (container) {
+        // Override container's fullscreen capability
+        const originalRequestFullscreen = container.requestFullscreen || 
+                                         container.webkitRequestFullscreen ||
+                                         container.mozRequestFullScreen ||
+                                         container.msRequestFullscreen;
         
-        if (isFullscreen) {
-            this.style.opacity = '1';
-            this.style.filter = 'none';
-            this.style.backgroundColor = '#000';
-            this.style.zIndex = '999999';
-            
-            // Add class to body to hide all card overlays
-            document.body.classList.add('video-fullscreen-active');
-        } else {
-            // Remove the class when exiting fullscreen
-            document.body.classList.remove('video-fullscreen-active');
-            this.style.zIndex = '';
+        if (container.requestFullscreen) {
+            container.requestFullscreen = function() {
+                return video.requestFullscreen ? video.requestFullscreen() : Promise.reject();
+            };
+        }
+        if (container.webkitRequestFullscreen) {
+            container.webkitRequestFullscreen = function() {
+                return video.webkitRequestFullscreen ? video.webkitRequestFullscreen() : null;
+            };
+        }
+        if (container.mozRequestFullScreen) {
+            container.mozRequestFullScreen = function() {
+                return video.mozRequestFullScreen ? video.mozRequestFullScreen() : null;
+            };
+        }
+        if (container.msRequestFullscreen) {
+            container.msRequestFullscreen = function() {
+                return video.msRequestFullscreen ? video.msRequestFullscreen() : null;
+            };
         }
     }
     
+    // Ensure video is fully visible in fullscreen and hide parent overlays
+    function handleFullscreenChange() {
+        const fullscreenElement = document.fullscreenElement || 
+                                 document.webkitFullscreenElement ||
+                                 document.mozFullScreenElement ||
+                                 document.msFullscreenElement;
+        
+        const isFullscreen = fullscreenElement === this || 
+                           fullscreenElement === container ||
+                           fullscreenElement === cardDiv ||
+                           fullscreenElement?.contains(this);
+        
+        if (isFullscreen) {
+            // If container or parent went fullscreen, exit and request on video
+            if (fullscreenElement !== this && fullscreenElement?.contains(this)) {
+                const exitFullscreen = document.exitFullscreen || 
+                                     document.webkitExitFullscreen ||
+                                     document.mozCancelFullScreen ||
+                                     document.msExitFullscreen;
+                if (exitFullscreen) {
+                    exitFullscreen.call(document).then(() => {
+                        // Request fullscreen on video element
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen().catch(() => {});
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    }).catch(() => {});
+                }
+            }
+            
+            // Force video styling
+            this.style.setProperty('opacity', '1', 'important');
+            this.style.setProperty('filter', 'none', 'important');
+            this.style.setProperty('background-color', '#000', 'important');
+            this.style.setProperty('z-index', '999999', 'important');
+            this.style.setProperty('mix-blend-mode', 'normal', 'important');
+            
+            // Hide parent overlays and backgrounds
+            if (cardDiv) {
+                cardDiv.style.setProperty('background', '#000', 'important');
+                cardDiv.style.setProperty('background-image', 'none', 'important');
+            }
+            if (container) {
+                container.style.setProperty('background', '#000', 'important');
+            }
+            
+            // Add class to body to hide all card overlays
+            document.body.classList.add('video-fullscreen-active');
+            
+            console.log('Video fullscreen active - element:', fullscreenElement?.tagName, fullscreenElement?.className);
+        } else {
+            // Remove the class when exiting fullscreen
+            document.body.classList.remove('video-fullscreen-active');
+            this.style.removeProperty('z-index');
+            this.style.removeProperty('mix-blend-mode');
+            if (cardDiv) {
+                cardDiv.style.removeProperty('background');
+                cardDiv.style.removeProperty('background-image');
+            }
+            if (container) {
+                container.style.removeProperty('background');
+            }
+        }
+    }
+    
+    // Listen to document-level fullscreen changes
+    function handleDocumentFullscreenChange() {
+        const fullscreenElement = document.fullscreenElement || 
+                                 document.webkitFullscreenElement ||
+                                 document.mozFullScreenElement ||
+                                 document.msFullscreenElement;
+        
+        if (fullscreenElement) {
+            // Check if it's our video or contains our video
+            if (fullscreenElement === video || fullscreenElement.contains(video)) {
+                handleFullscreenChange.call(video);
+            }
+        } else {
+            handleFullscreenChange.call(video);
+        }
+    }
+    
+    document.addEventListener('fullscreenchange', handleDocumentFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleDocumentFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleDocumentFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleDocumentFullscreenChange);
+    
+    // Also listen on video element
     video.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     video.addEventListener('mozfullscreenchange', handleFullscreenChange);
     video.addEventListener('MSFullscreenChange', handleFullscreenChange);
     video.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    // Intercept fullscreen button clicks on video controls
+    video.addEventListener('webkitbeginfullscreen', function(e) {
+        e.preventDefault();
+        if (this.webkitRequestFullscreen) {
+            this.webkitRequestFullscreen();
+        }
+    }, true);
     
     // Also listen for when fullscreen is requested to ensure video element goes fullscreen
     video.addEventListener('dblclick', function(e) {

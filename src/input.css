@@ -545,6 +545,12 @@ video:-webkit-full-screen {
     filter: none !important;
     opacity: 1 !important;
     z-index: 999999 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 
 video:-moz-full-screen {
@@ -552,6 +558,12 @@ video:-moz-full-screen {
     filter: none !important;
     opacity: 1 !important;
     z-index: 999999 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 
 video:-ms-fullscreen {
@@ -559,6 +571,12 @@ video:-ms-fullscreen {
     filter: none !important;
     opacity: 1 !important;
     z-index: 999999 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 
 video:fullscreen {
@@ -566,6 +584,23 @@ video:fullscreen {
     filter: none !important;
     opacity: 1 !important;
     z-index: 999999 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: contain !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* When video is inside a fullscreen container, ensure it's visible */
+:-webkit-full-screen video,
+:-moz-full-screen video,
+:-ms-fullscreen video,
+:fullscreen video {
+    opacity: 1 !important;
+    filter: none !important;
+    background-color: transparent !important;
+    z-index: 1 !important;
 }
 
 /* Ensure video container doesn't affect fullscreen */
@@ -585,11 +620,51 @@ video:fullscreen {
     background: #000 !important;
 }
 
+/* If parent card div goes fullscreen, make it transparent/black */
+.adventure-card > div:-webkit-full-screen,
+.adventure-card > div:-moz-full-screen,
+.adventure-card > div:-ms-fullscreen,
+.adventure-card > div:fullscreen {
+    background: #000 !important;
+    background-image: none !important;
+}
+
+.adventure-card:-webkit-full-screen > div,
+.adventure-card:-moz-full-screen > div,
+.adventure-card:-ms-fullscreen > div,
+.adventure-card:fullscreen > div {
+    background: #000 !important;
+    background-image: none !important;
+}
+
+/* Hide all overlays and textures when any parent is fullscreen */
+.adventure-card > div:-webkit-full-screen::before,
+.adventure-card > div:-moz-full-screen::before,
+.adventure-card > div:-ms-fullscreen::before,
+.adventure-card > div:fullscreen::before,
+.adventure-card:-webkit-full-screen > div::before,
+.adventure-card:-moz-full-screen > div::before,
+.adventure-card:-ms-fullscreen > div::before,
+.adventure-card:fullscreen > div::before {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
 /* Hide parent card overlays when video is in fullscreen (via JavaScript body class) */
 body.video-fullscreen-active .adventure-card > div::before {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
+}
+
+body.video-fullscreen-active .adventure-card > div {
+    background: #000 !important;
+    background-image: none !important;
+}
+
+body.video-fullscreen-active .video-container {
+    background: #000 !important;
 }
 
 /* Also hide overlays when any fullscreen element exists (for browsers that support :has) */
@@ -601,6 +676,21 @@ body.video-fullscreen-active .adventure-card > div::before {
         display: none !important;
         opacity: 0 !important;
         visibility: hidden !important;
+    }
+    
+    body:has(:fullscreen) .adventure-card > div,
+    body:has(:-webkit-full-screen) .adventure-card > div,
+    body:has(:-moz-full-screen) .adventure-card > div,
+    body:has(:-ms-fullscreen) .adventure-card > div {
+        background: #000 !important;
+        background-image: none !important;
+    }
+    
+    body:has(:fullscreen) .video-container,
+    body:has(:-webkit-full-screen) .video-container,
+    body:has(:-moz-full-screen) .video-container,
+    body:has(:-ms-fullscreen) .video-container {
+        background: #000 !important;
     }
 }
 

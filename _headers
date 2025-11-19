@@ -12,6 +12,7 @@
 /*.html
   Content-Type: text/html; charset=utf-8
   Cache-Control: public, max-age=0, must-revalidate
+  Cross-Origin-Embedder-Policy: credentialless
 
 /*.png
   Content-Type: image/png

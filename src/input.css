@@ -343,7 +343,7 @@ html {
     background-size: 20px 20px;
     opacity: 0.4;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 }
 
 /* CRITICAL FIX: Hide felt-texture overlay in fullscreen AND on hover/play - this is causing the dark display */
@@ -498,7 +498,7 @@ section > * {
         );
     pointer-events: none;
     opacity: 0.6;
-    z-index: 1;
+    z-index: 0;
     transition: opacity 0.1s, visibility 0.1s;
 }
 
@@ -596,6 +596,13 @@ body.video-fullscreen-active .adventure-card > div::before,
     height: 100%;
     object-fit: contain;
     display: block;
+    position: relative;
+    z-index: 10 !important;
+}
+
+.video-container {
+    position: relative;
+    z-index: 10 !important;
 }
 
 /* Custom video controls styling */

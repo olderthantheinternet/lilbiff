@@ -176,25 +176,11 @@
                 Relive my adventures—warning: giggles guaranteed! 😄
             </p>
             
-            <!-- Filter Buttons -->
-            <div class="flex justify-center gap-4 mb-12 flex-wrap" data-aos="fade-up">
-                <button class="filter-btn active bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
-                    All
-                </button>
-                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
-                    Videos
-                </button>
-                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
-                    Photos
-                </button>
-                <button class="filter-btn bg-[#4ECDC4] text-white px-6 py-3 rounded-full font-bold hover:bg-[#FF6B6B] transition-all transform hover:scale-110">
-                    Stories
-                </button>
-            </div>
+            <!-- Filter Buttons (removed since we only have videos) -->
             
             <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Adventure Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <!-- Video Cards -->
                 <div class="adventure-card" data-category="videos" data-aos="flip-left">
                     <div class="bg-gradient-to-br from-[#FF6B6B] to-[#FFD700] rounded-xl p-4 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl felt-texture fabric-shadow overflow-hidden">
                         <div class="video-container rounded-lg overflow-hidden mb-3 bg-black/20">
@@ -221,29 +207,7 @@
                     </div>
                 </div>
                 
-                <div class="adventure-card" data-category="photos" data-aos="flip-left" data-aos-delay="200">
-                    <div class="bg-gradient-to-br from-[#FFD700] to-[#4ECDC4] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer felt-texture fabric-shadow">
-                        <div class="text-6xl mb-4 text-center">🏴‍☠️</div>
-                        <h3 class="font-bold text-xl mb-2 text-white text-center">Backyard Treasure Hunt</h3>
-                        <p class="text-white/90 text-center">Found a shiny rock! Success!</p>
-                        <div class="mt-4 text-center">
-                            <span class="text-4xl">📸</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="adventure-card" data-category="stories" data-aos="flip-left" data-aos-delay="300">
-                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#4ECDC4] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer felt-texture fabric-shadow">
-                        <div class="text-6xl mb-4 text-center">🎭</div>
-                        <h3 class="font-bold text-xl mb-2 text-white text-center">Improv Show Disaster</h3>
-                        <p class="text-white/90 text-center">The audience loved it... I think?</p>
-                        <div class="mt-4 text-center">
-                            <span class="text-4xl">📖</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="400">
+                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="200">
                     <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FFD700] rounded-xl p-4 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl felt-texture fabric-shadow overflow-hidden">
                         <div class="video-container rounded-lg overflow-hidden mb-3 bg-black/20">
                             <video class="w-full h-auto rounded-lg" controls preload="metadata" poster="images/lilbiff.png">
@@ -256,29 +220,7 @@
                     </div>
                 </div>
                 
-                <div class="adventure-card" data-category="photos" data-aos="flip-left" data-aos-delay="500">
-                    <div class="bg-gradient-to-br from-[#FFD700] to-[#FF6B6B] rounded-xl p-6 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl cursor-pointer felt-texture fabric-shadow">
-                        <div class="text-6xl mb-4 text-center">🎪</div>
-                        <h3 class="font-bold text-xl mb-2 text-white text-center">Circus Day Out</h3>
-                        <p class="text-white/90 text-center">I fit right in!</p>
-                        <div class="mt-4 text-center">
-                            <span class="text-4xl">📸</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="adventure-card" data-category="stories" data-aos="flip-left" data-aos-delay="600">
-                    <div class="bg-gradient-to-br from-[#FF6B6B] to-[#FFD700] rounded-xl p-6 h-full transform hover:scale-105 hover:-rotate-2 transition-all shadow-xl cursor-pointer felt-texture fabric-shadow">
-                        <div class="text-6xl mb-4 text-center">🐦</div>
-                        <h3 class="font-bold text-xl mb-2 text-white text-center">Pigeon Director Saga</h3>
-                        <p class="text-white/90 text-center">They're terrible actors.</p>
-                        <div class="mt-4 text-center">
-                            <span class="text-4xl">📖</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="700">
+                <div class="adventure-card" data-category="videos" data-aos="flip-left" data-aos-delay="300">
                     <div class="bg-gradient-to-br from-[#4ECDC4] to-[#FF6B6B] rounded-xl p-4 h-full transform hover:scale-105 hover:rotate-2 transition-all shadow-xl felt-texture fabric-shadow overflow-hidden">
                         <div class="video-container rounded-lg overflow-hidden mb-3 bg-black/20">
                             <video class="w-full h-auto rounded-lg" controls preload="metadata" poster="images/lilbiff.png">

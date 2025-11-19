@@ -39,35 +39,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Filter Buttons for Adventures Gallery
-const filterButtons = document.querySelectorAll('.filter-btn');
-const adventureCards = document.querySelectorAll('.adventure-card');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        this.classList.add('active');
-        
-        const filter = this.textContent.trim().toLowerCase();
-        
-        adventureCards.forEach(card => {
-            if (filter === 'all') {
-                card.style.display = 'block';
-                card.style.animation = 'fadeIn 0.5s';
-            } else {
-                const category = card.getAttribute('data-category');
-                if (category === filter) {
-                    card.style.display = 'block';
-                    card.style.animation = 'fadeIn 0.5s';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
-        });
-    });
-});
+// Filter functionality removed since we only have video cards now
+// All adventure cards are videos, so no filtering needed
 
 // Easter Egg: Click on Lil Biff Image (bowtie area) for Confetti
 const bowtie = document.getElementById('bowtie-easter-egg');

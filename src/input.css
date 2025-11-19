@@ -354,9 +354,6 @@ html {
 body.video-fullscreen-active .felt-texture::after,
 body.video-fullscreen-active .adventure-card .felt-texture::after,
 .adventure-card:hover .felt-texture::after,
-.adventure-card:has(.video-container:hover) .felt-texture::after,
-.adventure-card:has(video:not([paused])) .felt-texture::after,
-.adventure-card:has(video:hover) .felt-texture::after,
 .adventure-card.video-playing .felt-texture::after,
 .adventure-card.video-hovered .felt-texture::after {
     display: none !important;
@@ -367,6 +364,22 @@ body.video-fullscreen-active .adventure-card .felt-texture::after,
     z-index: -1 !important;
     background-image: none !important;
     background: none !important;
+}
+
+/* Use @supports for :has() selector to prevent CSS parsing errors */
+@supports selector(:has(*)) {
+    .adventure-card:has(.video-container:hover) .felt-texture::after,
+    .adventure-card:has(video:not([paused])) .felt-texture::after,
+    .adventure-card:has(video:hover) .felt-texture::after {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        content: none !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+        background-image: none !important;
+        background: none !important;
+    }
 }
 
 /* Also hide felt-texture background itself in fullscreen */
@@ -490,14 +503,23 @@ section > * {
 }
 
 /* CRITICAL: Hide overlay when video container is hovered or video is playing */
-.adventure-card:hover > div::before,
-.adventure-card:has(.video-container:hover) > div::before,
-.adventure-card:has(video:not([paused])) > div::before,
-.adventure-card:has(video:hover) > div::before {
+.adventure-card:hover > div::before {
     opacity: 0 !important;
     visibility: hidden !important;
     display: none !important;
     z-index: -1 !important;
+}
+
+/* Use @supports for :has() selector */
+@supports selector(:has(*)) {
+    .adventure-card:has(.video-container:hover) > div::before,
+    .adventure-card:has(video:not([paused])) > div::before,
+    .adventure-card:has(video:hover) > div::before {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        display: none !important;
+        z-index: -1 !important;
+    }
 }
 
 /* Hide overlay when fullscreen is active on body */
@@ -623,12 +645,6 @@ video:focus {
     opacity: 0 !important;
 }
 
-/* Hide parent div overlays when video is hovered or playing */
-.adventure-card:hover .video-container ~ *,
-.adventure-card .video-container:hover ~ * {
-    /* Need to target parent */
-}
-
 /* Better approach: Hide overlays on parent div when video container is hovered */
 .adventure-card:hover > div::before,
 .adventure-card:hover > div.felt-texture::after {
@@ -637,12 +653,13 @@ video:focus {
     display: none !important;
 }
 
-/* Hide overlays when video is playing */
-video:not([paused]) ~ *,
-.adventure-card:has(video:not([paused])) > div::before,
-.adventure-card:has(video:not([paused])) > div.felt-texture::after {
-    opacity: 0 !important;
-    visibility: hidden !important;
+/* Use @supports for :has() selector */
+@supports selector(:has(*)) {
+    .adventure-card:has(video:not([paused])) > div::before,
+    .adventure-card:has(video:not([paused])) > div.felt-texture::after {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
 }
 
 /* Remove video container transform in fullscreen */

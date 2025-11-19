@@ -276,10 +276,6 @@ allVideos.forEach(video => {
         this.style.opacity = '1';
     });
     
-    // Intercept fullscreen requests to ensure video element goes fullscreen, not container
-    const container = video.closest('.video-container');
-    const cardDiv = video.closest('.adventure-card')?.querySelector('div');
-    
     // Prevent container or parent from going fullscreen
     if (container) {
         // Override container's fullscreen capability
